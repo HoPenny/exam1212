@@ -123,6 +123,7 @@ class ArticleController extends Controller
         return $num;
     }
 
+    //12/12
     //取得指定分類的所有文章
     public function queryCgyRelation(Cgy $cgy)
     {
@@ -133,11 +134,12 @@ class ArticleController extends Controller
     //取得原分類ID為$old_cgy_id的第一個文章，將之改為新分類ID $new_cgy_id
     public function changeCgy($old_cgy_id, $new_cgy_id)
     {
+
         $cgy = Cgy::find($old_cgy_id);
+
         $article = Article::where('cgy_id', $old_cgy_id)->first();
         $article->cgy_id = $new_cgy_id;
-        $cgy->articles()->save($article);
-        // dd(Article::find($article->id));
+        $article->save();
 
         return Article::find($article->id);
 
@@ -146,50 +148,65 @@ class ArticleController extends Controller
     //取得指定文章的所屬分類
     public function getArticleCgy(Article $article)
     {
-        $article = Article::find($article);
-        return $article->cgys;
+        return $article->cgy;
 
     }
 
     //取得原分類 id 為$old_cgy_id的所有文章，將之改為新分類ID $new_cgy_id
     public function changeAllCgy($old_cgy_id, $new_cgy_id)
     {
+        $cgy = Cgy::find($old_cgy_id);
+        $articles = Article::where('cgy_id', $old_cgy_id)->get();
+        foreach ($articles as $article) {
+            $article->cgy_id = $new_cgy_id;
+            $article->save();
+        }
+        //  dd($articles);
+
+        return $articles;
 
     }
 
     //取得指定文章的所有標籤，連同該標籤建立的時間
     public function queryTags(Article $article)
     {
+        $article = Article::find($article);
+        return $article->tags()->first()->pivot->created_at;
 
     }
 
     //為指定的文章加入 id 為 tag_id 的標籤
     public function addTag(Article $article, $tag_id)
     {
+        $article->tags()->attach([$tag_id]);
 
     }
 
     //為指定的文章移除 id 為 tag_id 的標籤
     public function removeTag(Article $article, $tag_id)
     {
-
+        $article->tags()->detach([$tag_id]);
     }
 
     //將指定文章的標籤重新設定為 1 , 3 , 5
     public function syncTag(Article $article)
     {
+        $article->tags()->sync([1, 3, 5]);
+        dd($article->tags);
 
     }
 
     //為指定的文章加入 id 為 tag_id 的標籤，並設定標籤顏色
     public function addTagWithColor(Article $article, $tag_id, $color)
     {
+        $article->tags()->attach([$tag_id]);
+        $article->Tag->Pivot->color($color);
 
     }
 
     //取得指定文章的所有標籤，連同該標籤建立的時間以及標籤顏色
     public function queryTagsWithColor(Article $article)
     {
-
+        return $article->Tag->Pivot->create_at->color;
     }
 }

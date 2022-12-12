@@ -28,8 +28,16 @@ Route::namespace ('App\Http\Controllers\Api')->prefix('articles/query')->group(f
     Route::get('queryByCgy/{cgy}', 'ArticleController@queryByCgy');
     Route::get('queryPluck', 'ArticleController@queryPluck');
     Route::get('enabledCount', 'ArticleController@enabledCount');
+
     Route::get('queryCgyRelation/{cgy}', 'ArticleController@queryCgyRelation');
     Route::get('changeCgy/{old}/{new}', 'ArticleController@changeCgy');
     Route::get('getArticleCgy/{art}', 'ArticleController@getArticleCgy');
+    Route::get('changeAllCgy/{old}/{new}', 'ArticleController@changeAllCgy');
+    Route::get('queryTags/{art}', 'ArticleController@queryTags');
+    Route::get('addTag/{art}/{tag_id}', 'ArticleController@addTag');
+    Route::get('removeTag/{art}/{tag_id}', 'ArticleController@removeTag');
+    Route::get('syncTag/{art}', 'ArticleController@syncTag');
+    Route::get('addTagWithColor/{art}/{tag_id}/{color}', 'ArticleController@addTagWithColor');
+    Route::get('queryTagsWithColor/{art}', 'ArticleController@queryTagsWithColor');
 
 });

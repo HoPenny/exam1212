@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['title', 'url', 'cgy_id'];
     public function articles()
     {
-
-        return $this->belongsToMany(Article::class); //屬於誰的關聯,設Cgy屬於Article的關聯
+        return $this->belongsToMany(Article::class)->withTimestamps()->withPivot('color'); //屬於誰的關聯,設Article屬於tag的關聯
     }
 }
