@@ -23,7 +23,6 @@ return new class extends Migration
             $table->boolean('enabled')->default(true);
             $table->foreignId('cgy_id')->constrained();
 
-
             $table->timestamps();
         });
     }

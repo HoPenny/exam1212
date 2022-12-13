@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('cgies', function (Blueprint $table) {
             $table->id();
-            $table->string('subject', 100);
-            $table->string('pic', 255)->nullable();
+            $table->string('subject',100);
+            $table->string('pic',255)->nullable();
             $table->text('desc')->nullable();
             $table->boolean('enabled')->default(true);
             $table->timestamp('enabled_at')->nullable();

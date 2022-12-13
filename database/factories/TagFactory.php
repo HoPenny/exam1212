@@ -19,7 +19,7 @@ class TagFactory extends Factory
         return [
             'title' => $this->faker->word,
             'url' => $this->faker->url,
-            'sort' => rand(0,20)
+            'sort' => rand(0, 20),
         ];
     }
 }

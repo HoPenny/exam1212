@@ -21,10 +21,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');//關閉外鍵偵測
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //關閉外鍵偵測
         $this->call(CgySeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(TagSeeder::class);
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');//開啟外鍵偵測
+        $this->call(TagSeeder::class);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵偵測
     }
 }

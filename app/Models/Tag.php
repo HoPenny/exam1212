@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+    protected $dates = ['enabled_at'];
     protected $fillable = ['title', 'url', 'cgy_id'];
     public function articles()
     {

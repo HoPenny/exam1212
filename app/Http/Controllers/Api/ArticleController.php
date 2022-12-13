@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Cgy;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -155,30 +156,32 @@ class ArticleController extends Controller
     //取得原分類 id 為$old_cgy_id的所有文章，將之改為新分類ID $new_cgy_id
     public function changeAllCgy($old_cgy_id, $new_cgy_id)
     {
-        $cgy = Cgy::find($old_cgy_id);
         $articles = Article::where('cgy_id', $old_cgy_id)->get();
-        foreach ($articles as $article) {
-            $article->cgy_id = $new_cgy_id;
-            $article->save();
-        }
-        //  dd($articles);
+        $cgy = Cgy::find($new_cgy_id);
+        // dd($articles);
 
-        return $articles;
+        $cgy->articles()->saveMany($articles);
+        // foreach ($articles as $article) {
+        //     $article->cgy_id = $new_cgy_id;
+        //     $article->save();
+        // }
+        return $cgy->articles;
 
     }
 
     //取得指定文章的所有標籤，連同該標籤建立的時間
     public function queryTags(Article $article)
     {
-        $article = Article::find($article);
-        return $article->tags()->first()->pivot->created_at;
-
+        return $article->tags;
     }
 
     //為指定的文章加入 id 為 tag_id 的標籤
     public function addTag(Article $article, $tag_id)
     {
-        $article->tags()->attach([$tag_id]);
+        $tag = Tag::find($tag_id);
+        // dd($tag);
+        $article->tags()->save($tag);
+        return $article->tags;
 
     }
 
@@ -186,27 +189,30 @@ class ArticleController extends Controller
     public function removeTag(Article $article, $tag_id)
     {
         $article->tags()->detach([$tag_id]);
+        return $article->tags;
     }
 
     //將指定文章的標籤重新設定為 1 , 3 , 5
     public function syncTag(Article $article)
     {
+
         $article->tags()->sync([1, 3, 5]);
-        dd($article->tags);
+        return $article->tags;
 
     }
 
     //為指定的文章加入 id 為 tag_id 的標籤，並設定標籤顏色
     public function addTagWithColor(Article $article, $tag_id, $color)
     {
-        $article->tags()->attach([$tag_id]);
-        $article->Tag->Pivot->color($color);
+        $tag = Tag::find($tag_id);
+        $arts = $article->tags()->save($tag, ['color' => '#' . $color]);
+        return $article->tags;
 
     }
 
     //取得指定文章的所有標籤，連同該標籤建立的時間以及標籤顏色
     public function queryTagsWithColor(Article $article)
     {
-        return $article->Tag->Pivot->create_at->color;
+        return $article->tags;
     }
 }

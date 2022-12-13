@@ -30,14 +30,14 @@ Route::namespace ('App\Http\Controllers\Api')->prefix('articles/query')->group(f
     Route::get('enabledCount', 'ArticleController@enabledCount');
 
     Route::get('queryCgyRelation/{cgy}', 'ArticleController@queryCgyRelation');
-    Route::get('changeCgy/{old}/{new}', 'ArticleController@changeCgy');
-    Route::get('getArticleCgy/{art}', 'ArticleController@getArticleCgy');
-    Route::get('changeAllCgy/{old}/{new}', 'ArticleController@changeAllCgy');
-    Route::get('queryTags/{art}', 'ArticleController@queryTags');
-    Route::get('addTag/{art}/{tag_id}', 'ArticleController@addTag');
-    Route::get('removeTag/{art}/{tag_id}', 'ArticleController@removeTag');
-    Route::get('syncTag/{art}', 'ArticleController@syncTag');
-    Route::get('addTagWithColor/{art}/{tag_id}/{color}', 'ArticleController@addTagWithColor');
-    Route::get('queryTagsWithColor/{art}', 'ArticleController@queryTagsWithColor');
+    Route::get('changeCgy/{old_cgy_idd}/{new_cgy_id}', 'ArticleController@changeCgy');
+    Route::get('getArticleCgy/{article}', 'ArticleController@getArticleCgy');
+    Route::get('changeAllCgy/{old_cgy_id}/{new_cgy_id}', 'ArticleController@changeAllCgy');
+    Route::get('queryTags/{article}', 'ArticleController@queryTags');
+    Route::get('addTag/{article}/{tag_id}', 'ArticleController@addTag');
+    Route::get('removeTag/{article}/{tag_id}', 'ArticleController@removeTag');
+    Route::get('syncTag/{article}', 'ArticleController@syncTag');
+    Route::get('addTagWithColor/{article}/{tag_id}/{color}', 'ArticleController@addTagWithColor');
+    Route::get('queryTagsWithColor/{article}', 'ArticleController@queryTagsWithColor');
 
 });

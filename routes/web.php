@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Cgy;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/relation', function () {
-    // $article = Article::find(1);
-    // dd($article->cgy->subject);
     $article = Article::find(1);
-    // $article->tags()->attach([4, 5]);
-    // $article->tags()->sync([6, 7,8,9,10]);
-    dd($article->tags);
+    dd($article->cgy->subject);
 });
 
 Route::get('/changerelation', function () {
