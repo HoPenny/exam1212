@@ -215,4 +215,8 @@ class ArticleController extends Controller
     {
         return $article->tags;
     }
+    public function queryArticlewithTag(Article $article)
+    {
+        return Article::with('tags')->with('cgy')->find($article->id);
+    }
 }

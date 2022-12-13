@@ -39,5 +39,6 @@ Route::namespace ('App\Http\Controllers\Api')->prefix('articles/query')->group(f
     Route::get('syncTag/{article}', 'ArticleController@syncTag');
     Route::get('addTagWithColor/{article}/{tag_id}/{color}', 'ArticleController@addTagWithColor');
     Route::get('queryTagsWithColor/{article}', 'ArticleController@queryTagsWithColor');
+    Route::get('queryArticlewithTag/{article}', 'ArticleController@queryArticlewithTag');
 
 });
